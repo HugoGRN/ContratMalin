@@ -1,0 +1,25 @@
+<p style="color: green"><%= notice %></p>
+
+<div class="header">
+  <h1>Mes contrats</h1>
+  <% if current_user.information %>
+    <%= link_to "Nouveau", new_contrat_path, class: 'btn btn--secondary' %>
+  <% else %>
+    <%= link_to "Nouveau", new_information_path %>
+  <% end %>
+</div>
+
+<div id="contrats" class="container">
+  <% @contrats.each do |contrat| %>
+    <div class="form">
+      <p class="line"><strong>Type de contrat :</strong> <%= contrat.name_contrat.capitalize %></p>
+      <p class="line"><strong>Du </strong><%= "#{contrat.start_date&.strftime("%d %B")} au #{contrat.end_date&.strftime("%d %B %Y")}" %></p>
+      <p class="line"><strong>Entre </strong><%= "#{contrat.information.name} #{contrat.information.first_name} et #{contrat.name} #{contrat.first_name}" %></p>
+      <div class="option">
+        <%= link_to "Voir contrat", contrat, class: 'btn btn--light' %>
+        <%= button_to "Supprimer contrat", contrat, method: :delete, class: 'btn btn--light' %>
+      </div>
+    </div>
+  <% end %>
+</div>
+

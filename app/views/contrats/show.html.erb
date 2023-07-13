@@ -1,0 +1,18 @@
+<p style="color: green"><%= notice %></p>
+  
+<div class="header">
+  <h1>Votre contrat :</h1>
+</div>
+
+<div class="container">
+  <div class="form">
+    <%= render @contrat %>
+
+    <div class="option">
+      <% lien = send("#{@contrat.name_contrat.downcase}_contrat_path", @contrat) %>
+      <%= link_to "Télécharger", lien, method: :get, class: 'btn btn--light' %> |
+      <%= link_to "Modifier", edit_contrat_path(@contrat), class: 'btn btn--light' %> |
+      <%= button_to "Supprimer ce contrat", @contrat, method: :delete, class: 'btn btn--light' %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+<nav class="navbar">
+    <div class="box">
+        <div class="logo">
+            <%= link_to "Contrat Malin", root_path %>
+        </div>
+        <div class="menu">
+            <% if user_signed_in? %>
+                <ul>
+                    <li>
+                        <% if current_user.information %>
+                            <%= link_to "Mes infos", information_index_path %>
+                        <% else %>
+                            <%= link_to "Mes infos", new_information_path %>
+                        <% end %>
+                    </li>
+                    <li><%= link_to "Contrats", contrats_path %></li>
+                    <li><%= button_to "Déconnexion", destroy_user_session_path, method: :delete, class: 'btn btn--dark' %></li>
+                </ul>
+            <% else %>
+                <%= link_to "Se connecter", new_user_session_path, class: 'btn btn--dark' %>
+            <% end %>
+        </div>
+    </div>
+</nav>

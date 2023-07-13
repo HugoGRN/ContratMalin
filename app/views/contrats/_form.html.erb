@@ -1,0 +1,173 @@
+<%= form_with(model: contrat) do |form| %>
+  <% if contrat.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(contrat.errors.count, "error") %> prohibited this contrat from being saved:</h2>
+      <ul>
+        <% contrat.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="center">
+    <div class="column">
+      <div data-controller="form-contrat">
+        <div>
+          <%= form.button "Valider", formaction: new_contrat_path, formmethod: :get, data: { turbo_frame: :urrsaf_field, form_contrat_target: "submitbtn" } %>
+          <%= form.label :name_contrat, "Choix du contrat :" %>
+          <%= form.select :name_contrat, Contrat.name_contrats, {include_blank: true}, data: { action: "change->form-contrat#remotesubmit" } %>
+        </div>
+
+        <div>
+          <%= form.label :gender, "Genre :" %>
+          <%= form.select :gender, ['Monsieur', 'Madame'] %>
+        </div>
+      </div>
+
+      <div>
+        <%= form.label :name, "Nom :" %>
+        <%= form.text_field :name %>
+      </div>
+
+      <div>
+        <%= form.label :birthday, "Date de naissance :" %>
+        <%= form.date_field :birthday, { prompt: true, start_year: Date.today.year - 80, end_year: Date.today.year - 18, order: [:day, :month, :year], class: "medium-width" } %>
+      </div>
+
+      <div>
+        <%= form.label :registered_ordre, "Inscrit à l'Ordre de :" %>
+        <%= departement_select(form, :registered_ordre) do %>
+          <% if form.object.registered_ordre.present? %>
+            <%= content_tag(:option, form.object.registered_ordre, value: form.object.registered_ordre, selected: true) %>
+          <% end %>
+        <% end %>
+      </div>
+
+      <div>
+        <%= form.label :address_pro, "Adresse :" %>
+        <%= form.text_field :address_pro %>
+      </div>
+
+      <div>
+        <%= form.label :start_date, "Commence le :" %>
+        <%= form.date_field :start_date, value: contrat.start_date.present? ? contrat.start_date : Date.current, class: "medium-width" %>
+      </div>
+            
+      <div>
+        <%= form.label :retro, "Rétrocession de :" %>
+        <%= form.number_field :retro, class: "small-width" %>%
+      </div>
+
+      <div>
+        <%= form.label :conflict_order, "En cas de conflit contacter l'Ordre de :" %>
+        <%= departement_select(form, :conflict_order) %>
+      </div>
+    </div>
+
+    <div class="column">
+      <div class="radio_wrap">
+        <%= form.radio_button :status, "perso_1", class: 'radio_label' %>
+        <div id="status_1">Je me fais remplacer</div>
+      </div>
+
+      <div class="radio_wrap">
+        <%= form.radio_button :status, "perso_2", class: 'radio_label' %>
+        <div id="status_2">Je remplace</div>
+      </div>
+
+      <div>
+        <%= form.label :first_name, "Prénom :" %>
+        <%= form.text_field :first_name %>
+      </div>
+
+      <div>
+        <%= form.label :place_birth, "Lieu de naissance :" %>
+        <%= form.text_field :place_birth %>
+      </div>
+
+      <div>
+        <%= form.label :n_ordinal, "Numéro ordinal :" %>
+        <%= form.number_field :n_ordinal %>
+      </div>
+
+      <div>
+        <%= form.label :email, "Email :" %>
+        <%= form.email_field :email %>
+      </div>
+
+      <div>
+        <%= form.label :end_date, "Se termine le :" %>
+        <%= form.date_field :end_date, value: contrat.end_date.present? ? contrat.end_date : Date.current, class: "medium-width" %>
+      </div>
+
+      <div>
+        <%= form.label :payment_limit, "À verser avant le :" %>
+        <%= form.select :payment_limit, options_for_select([5, 15, 30]), prompt: '5/15/30' %> du mois
+      </div>
+
+      <div>
+        <%= form.label :rayon_install, "Dans un rayon de " %>
+        <%= form.number_field :rayon_install, class: "small-width" %> km autour du cabinet
+      </div>
+    </div>
+  </div>
+
+      <%= turbo_frame_tag :urrsaf_field do %>
+        <% if contrat.assistanat? %>
+          <%= turbo_stream.update "status_1", html: "Je suis le titulaire" %>
+          <%= turbo_stream.update "status_2", html: "Je suis l'assistant" %>
+          <div>
+            <%= form.label :n_urssaf, "N° d'URSSAF de l'assistant :" %>
+            <%= form.number_field :n_urssaf, value: contrat.n_urssaf %>
+          </div>
+          
+          <div>
+            <%= form.label :nb_refus, "Nb max de refus successifs du titulaire :" %>
+            <%= form.number_field :nb_refus, value: contrat.nb_refus, class: "small-width" %>
+          </div>
+
+          <div>
+            <%= form.label :blackout_period, "Installation en libéral interdite pendant une durée de :" %>
+            <%= form.number_field :blackout_period, value: contrat.blackout_period, class: "small-width" %> mois
+          </div>
+        <% elsif contrat.collaboration? %>
+          <%= turbo_stream.update "status_1", html: "Je suis le titulaire" %>
+          <%= turbo_stream.update "status_2", html: "Je suis le collaborateur" %>      
+          <div>
+            <%= form.label :n_urssaf, "N° URSSAF du collaborateur :" %>
+            <%= form.number_field :n_urssaf, value: contrat.n_urssaf %>
+          </div>  
+
+          <div>
+            <%= form.label :nb_refus, "Nb max de refus successifs du titulaire :" %>
+            <%= form.number_field :nb_refus, value: contrat.nb_refus, class: "small-width" %>
+          </div>
+
+          <div>
+            <%= form.label :blackout_period, "Installation en libéral interdite pendant une durée de :" %>
+            <%= form.number_field :blackout_period, value: contrat.blackout_period, class: "small-width" %> mois
+          </div>
+        <% end %>
+      <% end %>
+
+  <div class="center">
+    <div class="column">
+      <div>
+        <%= form.label :made_on, "Fait le :" %>
+        <%= form.date_field :made_on, value: Date.current, class: "medium-width" %>
+      </div>
+    </div>
+
+    <div class="column">
+      <div>
+        <%= form.label :to, "À :" %>
+        <%= form.text_field :to %>
+      </div>
+    </div>
+  </div>
+
+  <div class="center">
+    <%= form.submit "Enregistrer", class: 'btn btn--primary' %>
+  </div>
+<% end %>

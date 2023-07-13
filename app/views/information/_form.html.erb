@@ -1,0 +1,120 @@
+<%= form_with(model: information) do |form| %>
+    <% if information.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(information.errors.count, "error") %> prohibited this information from being saved:</h2>
+
+        <ul>
+          <% information.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    
+  <div class="center">
+    <div class="column">
+      <div >
+        <%= form.label :gender, "Genre :", style: "display: block" %>
+        <%= form.select :gender, ['Monsieur', 'Madame'] %>
+      </div>
+      
+      <div>
+        <%= form.label :usage_name, "Nom d'usage:", style: "display: block" %>
+        <%= form.text_field :usage_name %>
+      </div>
+
+      <div>
+        <%= form.label :nationality, "Nationalité :", style: "display: block" %>
+        <%= form.text_field :nationality %>
+      </div>
+
+      <div>
+        <%= form.label :place_birth, "Lieu de naissance :", style: "display: block" %>
+        <%= form.text_field :place_birth %>
+      </div>
+
+      <div>
+        <%= form.label :graduation_date, "Date d'obtention :", style: "display: block" %>
+        <%= form.date_field :graduation_date %>
+      </div>
+
+      <div>
+        <%= form.label :n_ordinal, "Numéro ordinal :", style: "display: block" %>
+        <%= form.number_field :n_ordinal, prompt: 'xx xxxxxxx' %>
+      </div>
+
+      <div>
+        <%= form.label :street_number, "Numéro de la rue :", style: "display: block" %>
+        <%= form.number_field :street_number %>
+        <%= form.label :address_complement, "Complément :", style: "display: block" %>
+        <%= form.text_field :address_complement %>
+        <%= form.label :city, "Ville :", style: "display: block" %>
+        <%= form.text_field :city %>
+      </div>
+
+      <div>
+        <%= form.label :n_secu, "Numéro de sécurité sociale :", style: "display: block" %>
+        <%= form.number_field :n_secu, prompt: 'x xx xx xx xxx xxx xx' %>
+      </div>
+
+      <div>
+        <%= form.label :rpps, "Numéro rpps :", style: "display: block" %>
+        <%= form.number_field :rpps, prompt: 'x xxxxxxxx xx', class: 'field_box' %>
+      </div>
+    </div>
+        
+    <div class="column">
+      <div >
+        <%= form.label :name, "Nom :", style: "display: block" %>
+        <%= form.text_field :name %>
+      </div>
+
+      <div>
+        <%= form.label :first_name, "Prénom :", style: "display: block" %>
+        <%= form.text_field :first_name %>
+      </div>
+
+      <div>
+        <%= form.label :birthday, "Date de naissance :", style: "display: block" %>
+        <%= form.date_select :birthday, { prompt: true, start_year: Date.today.year - 80, end_year: Date.today.year - 18 } %>
+      </div>
+
+      <div>
+        <%= form.label :diploma, "Intitulé du diplôme :", style: "display: block" %>
+        <%= form.text_field :diploma %>
+      </div>
+
+      <div>
+        <%= form.label :place_diploma, "Lieu d'obtention :", style: "display: block" %>
+        <%= form.text_field :place_diploma %>
+      </div>
+
+      <div>
+        <%= form.label :registered_ordre, "Inscrit à l'Ordre de :", style: "display: block" %>
+        <%= departement_select(form, :registered_ordre) do %>
+          <% if form.object.registered_ordre.present? %>
+            <%= content_tag(:option, form.object.registered_ordre, value: form.object.registered_ordre, selected: true) %>
+          <% end %>
+        <% end %>
+      </div>
+
+      <div>
+        <%= form.label :name_street, "Nom de la rue :", style: "display: block" %>
+        <%= form.text_field :name_street %>
+        <%= form.label :zip_code, "Code postal :", style: "display: block" %>
+        <%= form.number_field :zip_code %>
+        <%= form.label :country, "Pays :", style: "display: block" %>
+        <%= form.text_field :country %>
+      </div>
+
+      <div>
+        <%= form.label :address_pro, "Adresse professionel :", style: "display: block" %>
+        <%= form.text_field :address_pro %>
+      </div>
+    </div>
+  </div>
+
+  <div class="center">
+    <%= form.submit "Enregistrer", class: 'btn btn--primary' %>
+  </div>
+<% end %>

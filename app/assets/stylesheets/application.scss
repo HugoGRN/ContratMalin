@@ -1,0 +1,17 @@
+ // Mixins
+@import "mixins/media";
+
+// Configuration
+@import "config/variables";
+@import "config/reset";
+
+// Components
+@import "components/btn";
+@import "components/contrat";
+@import "components/champs";
+
+// Layouts
+@import "layouts/container";
+@import "layouts/header";
+@import "layouts/navbar";
+@import "layouts/footer";

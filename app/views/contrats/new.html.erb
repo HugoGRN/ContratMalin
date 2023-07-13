@@ -1,0 +1,14 @@
+<%= turbo_frame_tag @contrat do %>
+  <div class="header">
+    <h1>Nouveau contrat</h1>
+  </div>
+  <div class="container">
+    <div class="form">
+      <%= render "form", contrat: @contrat %>
+
+      <div class="option">
+        <%= link_to "Retour", contrats_path, class: 'btn btn--light' %>
+      </div>
+    </div>
+  </div>
+<% end %>

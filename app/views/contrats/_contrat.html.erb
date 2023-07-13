@@ -1,0 +1,71 @@
+<div id="<%= dom_id contrat %>">
+  <p class="line">
+    <strong>Type de contrat :</strong>
+    <%= contrat.name_contrat.capitalize %>
+  </p>
+
+  <p class="line">
+    <% if contrat.name_contrat == "remplacement" %>
+      <strong><%= @first_person.gender == "Monsieur" ? "Le remplacé :" : "La remplacée :" %></strong>
+    <% else %>
+      <strong><%= @first_person.gender == "Monsieur" ? "Le titulaire :" : "La titulaire :" %></strong>
+    <% end %>
+    <%= "#{@first_person.gender} #{@first_person.name} #{@first_person.first_name}" %>
+  </p>
+  
+  <p class="line">
+    <% if contrat.name_contrat == "remplacement" %>
+      <strong><%= @second_person.gender == "Monsieur" ? "Le remplaçant :" : "La remplaçante :" %></strong>
+    <% elsif contrat.name_contrat == "assistanat" %>
+      <strong><%= @second_person.gender == "Monsieur" ? "L'assistant :" : "L'assistante :" %></strong>
+    <% else %>
+      <strong><%= @second_person.gender == "Monsieur" ? "Le collaborateur :" : "La collaboratrice :" %></strong>
+    <% end %>
+    <%= "#{@second_person.gender} #{@second_person.name} #{@second_person.first_name}" %>
+  </p>
+
+  <p class="line">
+    <strong>Commence le :</strong>
+    <%= contrat.start_date&.strftime('%d/%m/%Y') %>
+  </p>
+  
+  <p class="line">
+    <% if contrat.name_contrat == "remplacement" %>
+      <strong>Se termine le :</strong>
+      <%= contrat.end_date&.strftime("%d/%m/%Y") %>
+    <% else %>
+      <strong>Pour une durée de :</strong>
+      <%= "#{(contrat.end_date.year * 12 + contrat.end_date.month) - (contrat.start_date.year * 12 + contrat.start_date.month) + 1} mois" %>
+    <% end %>
+  </p>
+
+  <p class="line">
+    <strong>Rétrocéssion de :</strong>
+    <%= "#{contrat.retro} %" %>
+  </p>
+
+  <p class="line">
+    <strong>À verser avant le :</strong>
+    <%= "#{contrat.payment_limit} de chaque mois" %>
+  </p>
+
+  <p class="line">
+    <strong>Installation en libéral interdite dans un rayon de :</strong>
+    <%= "#{contrat.rayon_install}km" %>
+  </p>
+
+  <p class="line">
+    <strong>En cas de conflit contacter l'Ordre de :</strong>
+    <%= contrat.conflict_order %>
+  </p>  
+  
+  <p class="line">
+    <strong>Fait le :</strong>
+    <%= contrat.made_on&.strftime("%d/%m/%Y") %>
+  </p>  
+  
+  <p class="line">
+    <strong>À :</strong>
+    <%= contrat.to %>
+  </p>
+</div>

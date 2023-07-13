@@ -1,0 +1,15 @@
+<div class="design">
+    <div class="form form--two">
+        <h1>Génère ton contrat</h1>
+        <h1>professionel facilement</h1>
+        <div class="base-line">
+            <%= link_to "Essayer maintenant", user_signed_in? ? new_contrat_path : new_information_path, class: 'btn btn--primary' %>
+        </div>
+    </div>
+</div>
+
+
+<% @names.each do |champ| %>
+  <ul><% champ.html_safe %></ul>
+<% end %>
+<% @names.count %>

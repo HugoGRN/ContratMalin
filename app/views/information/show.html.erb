@@ -1,0 +1,13 @@
+<p style="color: green"><%= notice %></p>
+
+<div class="container">
+  <div class="form">
+    <%= render @information %>
+
+    <div class="option">
+      <%= link_to "Modifier", edit_information_path(@information), class: 'btn btn--light' %>
+      <%= link_to "retour", information_index_path, class: 'btn btn--light' %>
+      <%= button_to "Supprimer", @information, method: :delete, class: 'btn btn--light' %>
+    </div>
+  </div>
+</div>

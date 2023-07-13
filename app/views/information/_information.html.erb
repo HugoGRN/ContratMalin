@@ -1,0 +1,54 @@
+<div id="<%= dom_id information %>">
+  <div class="center">
+    <div class="column">
+      <p>
+        <strong><%= "#{information.gender} #{information.name}" %></strong>
+      </p>
+
+      <p>
+        <strong>Née le :</strong>
+        <%= information.birthday.strftime('%d/%m/%Y') %>
+      </p>
+
+      <p>
+        <strong>Profession :</strong>
+        <%= information.diploma %>
+      </p>
+
+      <p>
+        <strong>Lieu :</strong>
+        <%= information.place_diploma %>
+      </p>
+
+      <p>
+        <strong>Inscrit à l'ordre :</strong>
+        <%= information.registered_ordre %>
+      </p>
+    </div>
+
+    <div class="column">
+      <p>
+        <strong> <%= information.first_name %> </strong>
+      </p>
+
+      <p>
+        <strong>À :</strong>
+        <%= information.place_birth %>
+      </p>
+
+      <p>
+        <strong>Diplômé le :</strong>
+        <%= information.graduation_date.strftime('%d/%m/%Y') %>
+      </p>
+
+      <p>
+        <strong>Numéro ordinal :</strong>
+        <%= information.n_ordinal %>
+      </p>
+
+      <p>
+        <strong>Adresse pro :</strong>
+        <%= information.address_pro %>
+      </p>
+  </div>
+</div>

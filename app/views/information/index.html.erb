@@ -1,0 +1,36 @@
+<p style="color: green"><%= notice %></p>
+
+<div class="header">
+  <h1>Mes informations</h1>
+</div>
+
+<div id="information" class="container">
+    <div class="form">
+        <div class="center center--line">
+            <p>
+                <strong>Email :</strong>
+                <%= current_user.email %>
+            </p>
+            <p>
+                <strong>Mot de passe :</strong>
+                <%= "********" %>
+            </p>
+            <%= link_to "Modifier", edit_user_registration_path(@current_user), class: 'btn btn--light' %>
+        </div>
+    </div>
+
+    <div class="form">
+        <% if current_user.information %>
+            <%= render @information %>
+            <div class="option option--center">
+                <%= link_to "Modifier", edit_information_path(@information), class: 'btn btn--primary' %>
+            </div>
+        <% else %>
+            <p>Aucune fiche d'information créée.</p>
+            <div class="option option--center">
+                <%= link_to "Créer", new_information_path(@information), class: 'btn btn--primary' %>
+            </div>
+        <% end %>
+    </div>
+</div>
+</div>
